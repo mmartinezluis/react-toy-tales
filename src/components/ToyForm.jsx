@@ -9,7 +9,6 @@ class ToyForm extends Component {
   
   handleSubmit = (event) => {
     event.preventDefault()
-    // debugger
     const toyData = { name: this.name.current.value, image: this.image.current.value, likes: 0 }
     const config = {
       method: "POST",

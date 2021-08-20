@@ -24,8 +24,6 @@ class ToyCard extends Component {
       <div className="card">
         <h2>{name}</h2>
         <img src={image} alt={name} className="toy-avatar" />
-        {/* <p>{likes} Likes </p>
-        <button className="like-btn">Like {'<3'}</button> */}
         <LikesButton likes = {likes} id={id} />
         <button onClick={this.remove} className="del-btn">Donate to GoodWill</button>
       </div>
