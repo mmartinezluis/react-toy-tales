@@ -9,7 +9,8 @@ import ToyContainer from './components/ToyContainer'
 class App extends React.Component{
 
   state = {
-    display: false
+    display: false,
+    toys: []
   }
 
   handleClick = () => {
@@ -19,20 +20,46 @@ class App extends React.Component{
     })
   }
 
+  componentDidMount() {    
+    fetch('http://localhost:3000/toys')
+    .then(response => response.json())
+    .then( data => this.setState({
+          toys: data
+      })
+    )  
+  }
+
+  triggerUpdate = (data) => {
+    this.setState({
+      toys: [...this.state.toys, data]
+    })
+  }
+
+  triggerDelete = (id) => {
+    this.setState({
+      toys: [
+        ...this.state.toys.filter( toy => toy.id !== id )
+      ]
+    })
+  }
+
+
+
   render(){
     return (
       <>
         <Header/>
         { this.state.display
             ?
-          <ToyForm/>
+          <ToyForm triggerUpdate={this.triggerUpdate} />
             :
           null
         }
         <div className="buttonContainer">
           <button onClick={this.handleClick}> Add a Toy </button>
         </div>
-        <ToyContainer/>
+        <ToyContainer toys = {this.state.toys} triggerDelete={this.triggerDelete}/>
+        {/* {this.state.toys} */}
       </>
     );
   }
